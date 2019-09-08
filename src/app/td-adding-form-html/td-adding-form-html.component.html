@@ -1,12 +1,16 @@
 <div class="container-fluid">
         <h1>Bootstrap Enrollment Form</h1>
 
+
+        <!--
         <p>Values: {{myUser | json}}
                 
         <hr/>
         Values: {{userForm.value | json}}
         <hr/>
-        
+        -->
+
+
         <!--
             validation guides:
             ng-touched - textbox not yet visited/clicked
@@ -17,31 +21,52 @@
             ng-invalid - invalid values
         -->
 
-        <form #userForm="ngForm">
-          <div class="form-group">
-            <label for="">Name</label>
-            <input type="text" required #name class="form-control" name="name" [(ngModel)]="myUser.name"/>
-          </div>
-        
-          <!--validations through classname-->
-          {{name.className}}
 
-          <div class="form-group">
-              <label for="">Email</label>
-              <input type="email" #email="ngModel" required class="form-control" name="email" [(ngModel)]="myUser.email"/>
-          </div>
+        <!--validations through classname uncomment codes below to see the effect-->
+          <!--{{name.className}}-->
 
           <!--validations through ngModel properties (done through assigning ngModel to the reference variable (#email="ngModel") )-->
-          Pristine: {{email.pristine}}<br/>
+          <!--Pristine: {{email.pristine}}<br/>
           Dirty: {{email.dirty}}<br/>
           Touched: {{email.touched}}<br/>
           Untouched: {{email.untouched}}<br/>
           Valid: {{email.valid}}<br/>
-          Invalid: {{email.invalid}}
-      
+          Invalid: {{email.invalid}}-->
+
+        <form #userForm="ngForm">
+          <div class="form-group">
+            <label for="">Name</label>
+            <input type="text" required #namecontrol="ngModel" class="form-control" [class.is-invalid]="namecontrol.invalid && namecontrol.touched" name="name" [(ngModel)]="myUser.name"/>
+            <small class="text-danger" [class.d-none]="namecontrol.valid || namecontrol.untouched" >Name is required</small>
+          </div>
+        
+          <div ngModelGroup="address">
+            <div class="form-group">
+                    <label for="">Street</label>
+                    <input type="text" required #streetcontrol="ngModel" class="form-control" [class.is-invalid]="streetcontrol.invalid && streetcontrol.touched" name="street" [(ngModel)]="myUser.address.street"/>
+            </div>
+            <div class="form-group">
+                    <label for="">City</label>
+                    <input type="text" required #citycontrol="ngModel" class="form-control" [class.is-invalid]="citycontrol.invalid && citycontrol.touched" name="city" [(ngModel)]="myUser.address.city"/>
+            </div>
+            <div class="form-group">
+                    <label for="">Province</label>
+                    <input type="text" required #provincecontrol="ngModel" class="form-control" [class.is-invalid]="provincecontrol.invalid && provincecontrol.touched" name="province" [(ngModel)]="myUser.address.province"/>
+            </div>
+          </div>
+
+          <div class="form-group">
+              <label for="">Email</label>
+              <input type="email" required #emailcontrol="ngModel"  class="form-control" [class.is-invalid]="emailcontrol.invalid && emailcontrol.touched" name="email" [(ngModel)]="myUser.email"/>
+          </div>
+
           <div class="form-group">
               <label for="">Phone</label>
-              <input type="tel" class="form-control" name="phone" [(ngModel)]="myUser.phone"/>
+              <input type="tel" required pattern='^\d{10}$' #phonecontrol="ngModel" class="form-control" [class.is-invalid]="phonecontrol.invalid && phonecontrol.touched" name="phone" [(ngModel)]="myUser.phone"/>
+              <div *ngIf="phonecontrol.errors && (phonecontrol.required || phonecontrol.touched)">
+                  <small *ngIf="phonecontrol.errors.required" >Phone is required</small>
+                  <small *ngIf="phonecontrol.errors.pattern" >Must be 10 digits and numeric</small>
+              </div>
           </div>
 
           <div class="form-group">

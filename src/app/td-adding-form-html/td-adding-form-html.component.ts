@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../user';
+import { User, Address } from '../user';
 
 @Component({
   selector: 'app-td-adding-form-html',
@@ -11,7 +11,7 @@ export class TdAddingFormHtmlComponent implements OnInit {
   constructor() { }
 
   topics = ['Angular','React','Vue'];
-  public myUser:User=new User('kangkong','billy_fazz@yahoo.com','09999999999','','morning',true);
+  public myUser:User=new User('kangkong','bonchon956@gmail.com','9999999999','','morning',true,new Address('Panget street Sitio Garapal ','Santa Rafael', 'Bulacan'));
 
   ngOnInit() {
   }

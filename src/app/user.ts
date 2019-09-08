@@ -5,8 +5,8 @@ export class User {
    public phone:string,
    public topic:string,
    public timePreference,
-   public subscribe:boolean
-
+   public subscribe:boolean,
+   public address:Address
    ){
 
    }
@@ -36,4 +36,13 @@ export class User {
     public topic:string;
     public timePreference;
     public subscribe:boolean;*/
+}
+
+export class Address{
+
+    public constructor(
+        public street:string,
+        public city:string,
+        public province
+        ){}
 }
