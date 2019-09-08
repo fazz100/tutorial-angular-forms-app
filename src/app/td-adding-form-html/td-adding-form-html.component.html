@@ -1,0 +1,76 @@
+<div class="container-fluid">
+        <h1>Bootstrap Enrollment Form</h1>
+
+        <p>Values: {{myUser | json}}
+                
+        <hr/>
+        Values: {{userForm.value | json}}
+        <hr/>
+        
+        <!--
+            validation guides:
+            ng-touched - textbox not yet visited/clicked
+            ng-touched - textbox visited/clicked (takes effect after onBlur event)
+            ng-pristine - value unchanged
+            ng-dirty - value changed
+            ng-valid - valid values
+            ng-invalid - invalid values
+        -->
+
+        <form #userForm="ngForm">
+          <div class="form-group">
+            <label for="">Name</label>
+            <input type="text" required #name class="form-control" name="name" [(ngModel)]="myUser.name"/>
+          </div>
+        
+          <!--validations through classname-->
+          {{name.className}}
+
+          <div class="form-group">
+              <label for="">Email</label>
+              <input type="email" #email="ngModel" required class="form-control" name="email" [(ngModel)]="myUser.email"/>
+          </div>
+
+          <!--validations through ngModel properties (done through assigning ngModel to the reference variable (#email="ngModel") )-->
+          Pristine: {{email.pristine}}<br/>
+          Dirty: {{email.dirty}}<br/>
+          Touched: {{email.touched}}<br/>
+          Untouched: {{email.untouched}}<br/>
+          Valid: {{email.valid}}<br/>
+          Invalid: {{email.invalid}}
+      
+          <div class="form-group">
+              <label for="">Phone</label>
+              <input type="tel" class="form-control" name="phone" [(ngModel)]="myUser.phone"/>
+          </div>
+
+          <div class="form-group">
+                <select name="topic" id="" class="custom-select" [(ngModel)]="myUser.topic">
+                    <option value="">I am interested in</option>
+                    <option *ngFor="let topic of topics">{{topic}}</option>
+                </select>
+          </div>
+
+          <div class="mb-3">
+              <label for="">Time preference</label>
+              <div class="form-check">
+                  <input type="radio" name="timePreference" id="" class="form-check-input" value="" [(ngModel)]="myUser.timePreference">
+                  <label for="" class="form-check-label">Morning (9AM - 12PM)</label>
+              </div>
+              <div class="form-check">
+                    <input type="radio" name="timePreference" id="" class="form-check-input" value="evening" [(ngModel)]="myUser.timePreference">
+                    <label for="" class="form-check-label">Evening (5PM - 8PM)</label>
+                </div>
+          </div>
+
+          <div class="form-check mb-3">
+              <input type="checkbox" class="form-check-input" name="subscribe" [(ngModel)]="myUser.subscribe">
+              <label class="form-check-label">
+                Send me promotional offers
+              </label>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Submit form</button>
+
+        </form>
+      </div>
