@@ -10,10 +10,21 @@ export class TdAddingFormHtmlComponent implements OnInit {
 
   constructor() { }
 
+  public selectHasError:boolean = false;
   topics = ['Angular','React','Vue'];
-  public myUser:User=new User('kangkong','bonchon956@gmail.com','9999999999','','morning',true,new Address('Panget street Sitio Garapal ','Santa Rafael', 'Bulacan'));
+  public myUser:User=new User('kangkong','bonchon956@gmail.com','9999999999','default','morning',true,new Address('Panget street Sitio Garapal ','Santa Rafael', 'Bulacan'));
 
   ngOnInit() {
+  }
+
+  public validateSelect(selectedValue:string)
+  {
+    if(selectedValue==="default")
+      this.selectHasError= true;
+    else
+    this.selectHasError= false;
+
+
   }
 
 }

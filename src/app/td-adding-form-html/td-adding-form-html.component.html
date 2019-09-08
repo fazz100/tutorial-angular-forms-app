@@ -43,26 +43,31 @@
           <div ngModelGroup="address">
             <div class="form-group">
                     <label for="">Street</label>
-                    <input type="text" required #streetcontrol="ngModel" class="form-control" [class.is-invalid]="streetcontrol.invalid && streetcontrol.touched" name="street" [(ngModel)]="myUser.address.street"/>
+                    <input type="text" required #streetcontrol="ngModel" class="form-control" 
+                    [class.is-invalid]="streetcontrol.invalid && streetcontrol.touched" name="street" [(ngModel)]="myUser.address.street"/>
             </div>
             <div class="form-group">
                     <label for="">City</label>
-                    <input type="text" required #citycontrol="ngModel" class="form-control" [class.is-invalid]="citycontrol.invalid && citycontrol.touched" name="city" [(ngModel)]="myUser.address.city"/>
+                    <input type="text" required #citycontrol="ngModel" class="form-control" 
+                    [class.is-invalid]="citycontrol.invalid && citycontrol.touched" name="city" [(ngModel)]="myUser.address.city"/>
             </div>
             <div class="form-group">
                     <label for="">Province</label>
-                    <input type="text" required #provincecontrol="ngModel" class="form-control" [class.is-invalid]="provincecontrol.invalid && provincecontrol.touched" name="province" [(ngModel)]="myUser.address.province"/>
+                    <input type="text" required #provincecontrol="ngModel" class="form-control" 
+                    [class.is-invalid]="provincecontrol.invalid && provincecontrol.touched" name="province" [(ngModel)]="myUser.address.province"/>
             </div>
           </div>
 
           <div class="form-group">
               <label for="">Email</label>
-              <input type="email" required #emailcontrol="ngModel"  class="form-control" [class.is-invalid]="emailcontrol.invalid && emailcontrol.touched" name="email" [(ngModel)]="myUser.email"/>
+              <input type="email" required #emailcontrol="ngModel"  class="form-control" 
+              [class.is-invalid]="emailcontrol.invalid && emailcontrol.touched" name="email" [(ngModel)]="myUser.email"/>
           </div>
 
           <div class="form-group">
               <label for="">Phone</label>
-              <input type="tel" required pattern='^\d{10}$' #phonecontrol="ngModel" class="form-control" [class.is-invalid]="phonecontrol.invalid && phonecontrol.touched" name="phone" [(ngModel)]="myUser.phone"/>
+              <input type="tel" required pattern='^\d{10}$' #phonecontrol="ngModel" class="form-control" 
+              [class.is-invalid]="phonecontrol.invalid && phonecontrol.touched" name="phone" [(ngModel)]="myUser.phone"/>
               <div *ngIf="phonecontrol.errors && (phonecontrol.required || phonecontrol.touched)">
                   <small *ngIf="phonecontrol.errors.required" >Phone is required</small>
                   <small *ngIf="phonecontrol.errors.pattern" >Must be 10 digits and numeric</small>
@@ -70,10 +75,12 @@
           </div>
 
           <div class="form-group">
-                <select name="topic" id="" class="custom-select" [(ngModel)]="myUser.topic">
-                    <option value="">I am interested in</option>
+                <select #selTopic="ngModel" (blur)="validateSelect(selTopic.value)" (change)="validateSelect(selTopic.value)" 
+                [class.is-invalid]="selectHasError && selTopic.touched" name="topic"  id="" class="custom-select" [(ngModel)]="myUser.topic">
+                    <option value="default" selected>I am interested in</option>
                     <option *ngFor="let topic of topics">{{topic}}</option>
                 </select>
+                <small class="text-danger" [class.d-none]="!selectHasError || selTopic.untouched" >Select a topic</small>
           </div>
 
           <div class="mb-3">
